@@ -130,7 +130,7 @@ export default function App() {
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden font-sans">
       {/* Form Sidebar */}
-      <div className="w-1/3 min-w-[400px] max-w-[500px] bg-white border-r border-gray-200 flex flex-col z-10 shadow-lg">
+      <div className="w-1/3 min-w-[400px] max-w-[500px] bg-white border-r border-gray-200 flex flex-col z-10 shadow-lg no-print">
         <div className="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center sticky top-0">
           <h2 className="text-lg font-semibold text-gray-800">Form Berita Acara</h2>
           <button
@@ -292,12 +292,12 @@ export default function App() {
       </div>
 
       {/* Preview Area */}
-      <div className="flex-1 overflow-y-auto p-8 bg-gray-200 flex flex-col items-center gap-8">
+      <div className="flex-1 overflow-y-auto p-8 print:p-0 bg-gray-200 print:bg-white flex flex-col items-center print:items-stretch gap-8 print:gap-0">
         {/* Document Page */}
-        <div className="print-area w-[210mm] min-h-[297mm] bg-white p-[20mm] shadow-xl text-black font-sans text-[14px] leading-relaxed relative">
+        <div className="print-area w-[210mm] min-h-[297mm] print:w-full print:min-h-0 bg-white p-[20mm] print:p-0 shadow-xl print:shadow-none text-black font-sans text-[13px] leading-relaxed relative">
           
           {/* Header */}
-          <div className="flex justify-between items-center border-b-[3px] border-black pb-4 mb-6">
+          <div className="flex justify-between items-center border-b-[3px] border-black pb-3 mb-5">
             <img 
               src="https://cdn.phototourl.com/uploads/2026-03-11-b5793c1c-f869-43f1-97b8-0f49e03463a8.png" 
               alt="Logo RW" 
@@ -318,13 +318,13 @@ export default function App() {
           </div>
 
           {/* Title */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-5">
             <h4 className="font-bold text-lg underline tracking-wide">BERITA ACARA KEHILANGAN</h4>
             <p className="mt-1">Nomor : {formData.nomor || '(NO)'} /BAK/KEAMANAN/RW.015/{formData.bulan || '(BULAN)'}/2026</p>
           </div>
 
           {/* Body */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <p>Pada hari ini {formData.hari || '(hari)'} tanggal {formData.tanggal || '(tanggal)'} yang bertanda tangan dibawah ini :</p>
             
             <table className="w-full ml-4">
@@ -346,7 +346,7 @@ export default function App() {
             </table>
 
             {/* Table */}
-            <table className="w-full border-collapse border border-blue-300 mt-6 mb-4">
+            <table className="w-full border-collapse border border-blue-300 mt-4 mb-2">
               <thead>
                 <tr className="bg-blue-100/50">
                   <th className="border border-blue-300 p-2 w-16 text-center font-bold">NO</th>
@@ -357,23 +357,23 @@ export default function App() {
               <tbody>
                 {formData.items.length > 0 ? formData.items.map((item, index) => (
                   <tr key={item.id}>
-                    <td className="border border-blue-300 p-2 text-center">{index + 1}</td>
-                    <td className="border border-blue-300 p-2">{item.jenisBarang}</td>
-                    <td className="border border-blue-300 p-2 text-right">
+                    <td className="border border-blue-300 p-1.5 text-center">{index + 1}</td>
+                    <td className="border border-blue-300 p-1.5">{item.jenisBarang}</td>
+                    <td className="border border-blue-300 p-1.5 text-right">
                       {item.taksiranHarga ? `Rp ${parseFloat(item.taksiranHarga).toLocaleString('id-ID')}` : ''}
                     </td>
                   </tr>
                 )) : (
                   <tr>
-                    <td className="border border-blue-300 p-2 text-center">&nbsp;</td>
-                    <td className="border border-blue-300 p-2"></td>
-                    <td className="border border-blue-300 p-2"></td>
+                    <td className="border border-blue-300 p-1.5 text-center">&nbsp;</td>
+                    <td className="border border-blue-300 p-1.5"></td>
+                    <td className="border border-blue-300 p-1.5"></td>
                   </tr>
                 )}
               </tbody>
             </table>
 
-            <div className="flex font-bold mt-2 mb-6">
+            <div className="flex font-bold mt-1 mb-4">
               <div className="w-48">TOTAL KERUGIAN</div>
               <div className="w-4">:</div>
               <div>Rp {totalKerugian.toLocaleString('id-ID')}</div>
@@ -387,40 +387,40 @@ export default function App() {
               </tbody>
             </table>
 
-            <p className="mt-8">Demikian Berita Acara Kehilangan ini dibuat dengan sebenar-benarnya untuk dipergunakan sebagaimana mestinya.</p>
+            <p className="mt-5">Demikian Berita Acara Kehilangan ini dibuat dengan sebenar-benarnya untuk dipergunakan sebagaimana mestinya.</p>
 
-            <div className="mt-8">
+            <div className="mt-5">
               <p>Cibitung : {formData.tanggalSurat || '......................................'}</p>
-              <p className="mt-2">Mengetahui</p>
+              <p className="mt-1">Mengetahui</p>
             </div>
 
             {/* Signatures Row */}
-            <div className="grid grid-cols-4 gap-2 mt-8 text-center items-end">
-              <div className="flex flex-col items-center justify-end h-32">
+            <div className="grid grid-cols-4 gap-2 mt-4 text-center items-end">
+              <div className="flex flex-col items-center justify-end h-28">
                 <p className="mb-auto">Ketua RW. 015</p>
                 {formData.signatures.rw && (
-                  <img src={formData.signatures.rw} alt="TTD RW" className="h-16 object-contain mb-1" />
+                  <img src={formData.signatures.rw} alt="TTD RW" className="h-14 object-contain mb-1" />
                 )}
                 <p className="font-bold underline">WARDIYANTO</p>
               </div>
-              <div className="flex flex-col items-center justify-end h-32">
+              <div className="flex flex-col items-center justify-end h-28">
                 <p className="mb-auto">Koord. Keamanan RW. 015</p>
                 {formData.signatures.keamanan && (
-                  <img src={formData.signatures.keamanan} alt="TTD Keamanan" className="h-16 object-contain mb-1" />
+                  <img src={formData.signatures.keamanan} alt="TTD Keamanan" className="h-14 object-contain mb-1" />
                 )}
                 <p className="font-bold underline">HENDRA SOMANTRI</p>
               </div>
-              <div className="flex flex-col items-center justify-end h-32">
+              <div className="flex flex-col items-center justify-end h-28">
                 <p className="mb-auto">KETUA RT. {formData.rt || '(RT)'}</p>
                 {formData.signatures.rt && (
-                  <img src={formData.signatures.rt} alt="TTD RT" className="h-16 object-contain mb-1" />
+                  <img src={formData.signatures.rt} alt="TTD RT" className="h-14 object-contain mb-1" />
                 )}
                 <p className="font-bold underline">({formData.namaKetuaRt || 'KETUA RT'})</p>
               </div>
-              <div className="flex flex-col items-center justify-end h-32">
+              <div className="flex flex-col items-center justify-end h-28">
                 <p className="mb-auto">Pelapor</p>
                 {formData.signatures.pelapor && (
-                  <img src={formData.signatures.pelapor} alt="TTD Pelapor" className="h-16 object-contain mb-1" />
+                  <img src={formData.signatures.pelapor} alt="TTD Pelapor" className="h-14 object-contain mb-1" />
                 )}
                 <p className="font-bold underline">({formData.namaPelapor || 'PELAPOR'})</p>
               </div>
@@ -430,7 +430,7 @@ export default function App() {
 
         {/* Photo Attachment Page (if exists) */}
         {formData.photoTkp && (
-          <div className="print-area w-[210mm] min-h-[297mm] bg-white p-[20mm] shadow-xl text-black font-sans text-[14px] leading-relaxed break-before-page flex flex-col items-center">
+          <div className="print-area w-[210mm] min-h-[297mm] print:w-full print:min-h-0 bg-white p-[20mm] print:p-0 shadow-xl print:shadow-none text-black font-sans text-[13px] leading-relaxed break-before-page print:break-before-page flex flex-col items-center">
             <h4 className="font-bold text-xl text-center mb-8 underline tracking-wide uppercase">Lampiran Foto TKP</h4>
             <div className="w-full flex-1 flex items-center justify-center border-2 border-dashed border-gray-300 p-4 rounded-lg">
               <img src={formData.photoTkp} alt="Foto TKP" className="max-w-full max-h-[200mm] object-contain shadow-md" />
